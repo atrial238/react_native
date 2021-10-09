@@ -1,19 +1,31 @@
-import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StyleSheet, Text, View } from "react-native";
-import { AppLoading } from "expo";
+import AppLoading from "expo-app-loading";
 import { fetchFonts } from "./utils/fetchFonts";
+import DetailsMeals from "./screens/DetailsMeals";
+import Categories from "./screens/Categories";
+import Meals from "./screens/Meals";
 
 export default function App() {
   const [isApploaded, setIsAppLoaded] = useState(false);
+  const Stack = createNativeStackNavigator();
 
   return isApploaded ? (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={Categories} />
+        <Stack.Screen name="Details" component={DetailsMeals} />
+        <Stack.Screen name="Meals" component={Meals} />
+      </Stack.Navigator>
+    </NavigationContainer>
   ) : (
-    <AppLoading startAsync={fetchFonts} onFinish={() => setIsAppLoaded(true)} />
+    <AppLoading
+      startAsync={fetchFonts}
+      onFinish={() => setIsAppLoaded(true)}
+      onError={(error) => console.log(error)}
+    />
   );
 }
 
