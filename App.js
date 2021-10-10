@@ -14,9 +14,18 @@ export default function App() {
 
   return isApploaded ? (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          headerTitleAlign: "center",
+        }}
+      >
         <Stack.Screen name="Home" component={Categories} />
-        <Stack.Screen name="Details" component={DetailsMeals} />
+        <Stack.Screen
+          name="Details"
+          component={DetailsMeals}
+          options={({ route }) => ({ title: route.params.title })}
+        />
         <Stack.Screen name="Meals" component={Meals} />
       </Stack.Navigator>
     </NavigationContainer>
