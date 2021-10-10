@@ -6,6 +6,7 @@ import {
   TouchableNativeFeedback,
   ImageBackground,
 } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import Subtitle from "./Subtitle";
 
 const Category = ({ title, style, navigation, backgroundImage, ...rest }) => {
@@ -23,9 +24,24 @@ const Category = ({ title, style, navigation, backgroundImage, ...rest }) => {
           resizeMode="cover"
           style={styles.imageBackground}
         >
-          <View style={styles.textWrapper}>
-            <Subtitle style={styles.text}>{title}</Subtitle>
-          </View>
+          <LinearGradient
+            colors={["rgba(0, 0, 0, 0.8)", "rgba(0, 0, 0, 0.2)"]}
+            style={styles.linearGradient}
+          >
+            <LinearGradient
+              colors={[
+                //   "rgba(255, 255, 255, 1)",
+                "rgba(255, 255, 255, 0.2)",
+                "transparent",
+              ]}
+              locations={[0.5, 0.5]}
+              style={styles.linearGradient}
+            >
+              <View style={styles.textWrapper}>
+                <Subtitle style={styles.text}>{title}</Subtitle>
+              </View>
+            </LinearGradient>
+          </LinearGradient>
         </ImageBackground>
       </View>
     </TouchableNativeFeedback>
@@ -44,6 +60,10 @@ const styles = StyleSheet.create({
     borderColor: "black",
     overflow: "hidden",
   },
+  linearGradient: {
+    width: "100%",
+    flex: 1,
+  },
   imageBackground: {
     width: "100%",
     height: "100%",
@@ -51,7 +71,7 @@ const styles = StyleSheet.create({
   textWrapper: {
     flex: 1,
     width: "100%",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    //  backgroundColor: "rgba(0, 0, 0, 0.5)",
     justifyContent: "flex-end",
     alignItems: "flex-end",
   },

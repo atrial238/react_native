@@ -27,6 +27,7 @@ const Categories = ({ navigation }) => {
 const styles = StyleSheet.create({
   wrapperList: {
     justifyContent: "space-around",
+    paddingTop: 15,
   },
 });
 
