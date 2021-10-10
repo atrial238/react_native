@@ -13,6 +13,7 @@ const Categories = ({ navigation }) => {
           <Category
             title={item.title}
             style={{ backgroundColor: item.color }}
+            backgroundImage={item.background}
             navigation={navigation}
           />
         )}

@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     paddingHorizontal: 15,
+    paddingTop: 15,
   },
 });
 

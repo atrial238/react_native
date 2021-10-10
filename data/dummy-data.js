@@ -1,20 +1,31 @@
+const italian = require("../assets/image/categories_meals/italian.jpg");
+const quick = require("../assets/image/categories_meals/quick_and_easy.jpg");
+const humberfger = require("../assets/image/categories_meals/humberfger.jpg");
+const german = require("../assets/image/categories_meals/german.jpg");
+const light = require("../assets/image/categories_meals/light_and_lovely.jpg");
+const exotic = require("../assets/image/categories_meals/exotic.jpg");
+const breakfast = require("../assets/image/categories_meals/breakfast.png");
+const asian = require("../assets/image/categories_meals/asian.jpg");
+const french = require("../assets/image/categories_meals/french.jpg");
+const summer = require("../assets/image/categories_meals/summer.jpg");
+
 class Category {
-  constructor(id, title, color) {
+  constructor(id, title, imageBackground) {
     this.id = id;
     this.title = title;
-    this.color = color;
+    this.background = imageBackground;
   }
 }
 
 export const CATEGORIES = [
-  new Category("c1", "Italian", "#f5428d"),
-  new Category("c2", "Quick & Easy", "#f54242"),
-  new Category("c3", "Hamburgers", "#f5a442"),
-  new Category("c4", "German", "#f5d142"),
-  new Category("c5", "Light & Lovely", "#368dff"),
-  new Category("c6", "Exotic", "#41d95d"),
-  new Category("c7", "Breakfast", "#9eecff"),
-  new Category("c8", "Asian", "#b9ffb0"),
-  new Category("c9", "French", "#ffc7ff"),
-  new Category("c10", "Summer", "#47fced"),
+  new Category("c1", "Italian", italian),
+  new Category("c2", "Quick & Easy", quick),
+  new Category("c3", "Hamburgers", humberfger),
+  new Category("c4", "German", german),
+  new Category("c5", "Light & Lovely", light),
+  new Category("c6", "Exotic", exotic),
+  new Category("c7", "Breakfast", breakfast),
+  new Category("c8", "Asian", asian),
+  new Category("c9", "French", french),
+  new Category("c10", "Summer", summer),
 ];

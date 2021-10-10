@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
+import { enableScreens } from "react-native-screens";
+
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StyleSheet, Text, View } from "react-native";
 import AppLoading from "expo-app-loading";
@@ -9,6 +11,7 @@ import Categories from "./screens/Categories";
 import Meals from "./screens/Meals";
 
 export default function App() {
+  enableScreens();
   const [isApploaded, setIsAppLoaded] = useState(false);
   const Stack = createNativeStackNavigator();
 
