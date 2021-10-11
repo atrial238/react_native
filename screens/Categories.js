@@ -12,6 +12,7 @@ const Categories = ({ navigation }) => {
         renderItem={({ item }) => (
           <Category
             title={item.title}
+            categoryId={item.id}
             style={{ backgroundColor: item.color }}
             backgroundImage={item.background}
             navigation={navigation}

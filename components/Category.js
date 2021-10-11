@@ -5,15 +5,23 @@ import {
   StyleSheet,
   TouchableNativeFeedback,
   ImageBackground,
+  Dimensions,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import Subtitle from "./Subtitle";
+import GlassEffect from "./GlassEffect";
 
-const Category = ({ title, style, navigation, backgroundImage, ...rest }) => {
+const Category = ({
+  title,
+  style,
+  navigation,
+  categoryId,
+  backgroundImage,
+  ...rest
+}) => {
   return (
     <TouchableNativeFeedback
       onPress={() =>
-        navigation.navigate("Details", { title: `${title} meals` })
+        navigation.navigate("Details", { title: `${title} meals`, categoryId })
       }
       useForeground={true}
       background={TouchableNativeFeedback.Ripple("black")}
@@ -24,24 +32,11 @@ const Category = ({ title, style, navigation, backgroundImage, ...rest }) => {
           resizeMode="cover"
           style={styles.imageBackground}
         >
-          <LinearGradient
-            colors={["rgba(0, 0, 0, 0.8)", "rgba(0, 0, 0, 0.2)"]}
-            style={styles.linearGradient}
-          >
-            <LinearGradient
-              colors={[
-                //   "rgba(255, 255, 255, 1)",
-                "rgba(255, 255, 255, 0.2)",
-                "transparent",
-              ]}
-              locations={[0.5, 0.5]}
-              style={styles.linearGradient}
-            >
-              <View style={styles.textWrapper}>
-                <Subtitle style={styles.text}>{title}</Subtitle>
-              </View>
-            </LinearGradient>
-          </LinearGradient>
+          <GlassEffect>
+            <View style={styles.textWrapper}>
+              <Subtitle style={styles.text}>{title}</Subtitle>
+            </View>
+          </GlassEffect>
         </ImageBackground>
       </View>
     </TouchableNativeFeedback>
@@ -50,8 +45,8 @@ const Category = ({ title, style, navigation, backgroundImage, ...rest }) => {
 
 const styles = StyleSheet.create({
   root: {
-    width: "35%",
-    height: 120,
+    width: Dimensions.get("window").width * 0.35,
+    height: Dimensions.get("window").width * 0.35,
     marginBottom: 20,
     justifyContent: "center",
     alignItems: "center",
@@ -59,10 +54,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderColor: "black",
     overflow: "hidden",
-  },
-  linearGradient: {
-    width: "100%",
-    flex: 1,
   },
   imageBackground: {
     width: "100%",
