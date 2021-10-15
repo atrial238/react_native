@@ -8,7 +8,7 @@ import AppLoading from "expo-app-loading";
 import { fetchFonts } from "./utils/fetchFonts";
 import DetailsMeals from "./screens/DetailsMeals";
 import Categories from "./screens/Categories";
-import Meals from "./screens/Meals";
+import Meal from "./screens/Meal";
 
 export default function App() {
   enableScreens();
@@ -29,7 +29,11 @@ export default function App() {
           component={DetailsMeals}
           options={({ route }) => ({ title: route.params.title })}
         />
-        <Stack.Screen name="Meals" component={Meals} />
+        <Stack.Screen 
+         name="Meal"
+         component={Meal} 
+         options={({route}) => ({title: route.params.title})}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   ) : (

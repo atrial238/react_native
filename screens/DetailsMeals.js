@@ -4,19 +4,21 @@ import RecipeItem from "../components/RecipeItem";
 import ScreenWrapper from "../components/ScreenWrapper";
 import { MEALS } from "../data/dummy-data";
 
-const DetailsMeals = ({ route }) => {
+const DetailsMeals = ({navigation, route}) => {
   const recipes = MEALS.filter((meal) =>
     meal.categoryIds.includes(route.params.categoryId)
   );
 
   const recipeItem = ({ item }) => {
-    const { title, duration, imageUrl, complexity, affordability } = item;
+    const { title, duration, imageUrl, complexity, affordability, id } = item;
     const recipeProps = {
       title,
       duration,
       imageUrl,
       complexity,
       affordability,
+      id,
+      navigation
     };
     return <RecipeItem {...recipeProps} />;
   };
@@ -24,7 +26,6 @@ const DetailsMeals = ({ route }) => {
   return (
     <ScreenWrapper>
       <FlatList data={recipes} renderItem={recipeItem} style={styles.root} />
-      <Text>DetailsMeals</Text>
     </ScreenWrapper>
   );
 };
