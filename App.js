@@ -29,10 +29,10 @@ export default function App() {
           component={DetailsMeals}
           options={({ route }) => ({ title: route.params.title })}
         />
-        <Stack.Screen 
-         name="Meal"
-         component={Meal} 
-         options={({route}) => ({title: route.params.title})}
+        <Stack.Screen
+          name="Meal"
+          component={Meal}
+          options={({ route }) => ({ title: route.params.title })}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -21,7 +21,7 @@ const Category = ({
   return (
     <TouchableNativeFeedback
       onPress={() =>
-        navigation.navigate("Details", { title: `${title} meals`, categoryId })
+        navigation.navigate("Details", { title: `${title}`, categoryId })
       }
       useForeground={true}
       background={TouchableNativeFeedback.Ripple("black")}
