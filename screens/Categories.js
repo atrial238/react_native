@@ -1,10 +1,30 @@
 import React from "react";
-import { Text, View, StyleSheet, Button, FlatList } from "react-native";
+import { StyleSheet, FlatList } from "react-native";
+import { Item } from "react-navigation-header-buttons";
+
+import { AntDesignHeaderButtons } from "../components/AntDesignHeaderButtons";
+
 import Category from "../components/Category";
 import ScreenWrapper from "../components/ScreenWrapper";
 import { CATEGORIES } from "../data/dummy-data";
 
 const Categories = ({ navigation }) => {
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <AntDesignHeaderButtons>
+          <Item
+            title="favorite"
+            iconName="menuunfold"
+            size={24}
+            color="black"
+            onPress={() => navigation.toggleDrawer()}
+          />
+        </AntDesignHeaderButtons>
+      ),
+    });
+  }, [navigation]);
+
   return (
     <ScreenWrapper>
       <FlatList

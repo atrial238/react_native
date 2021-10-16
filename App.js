@@ -3,11 +3,13 @@ import { TouchableOpacity } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import AppLoading from "expo-app-loading";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import FavoritesMeals from "./screens/FavoritesMeals";
 import FavoriteMeal from "./screens/FavoriteMeal";
+import Filter from "./screens/Filter";
 import Categories from "./screens/Categories";
 import DetailsMeals from "./screens/DetailsMeals";
 import Meal from "./screens/Meal";
@@ -57,7 +59,56 @@ function FavoriteMealsStackScreen() {
   );
 }
 
+const FilterStack = createNativeStackNavigator();
+
+const FilterStackScreen = () => {
+  return (
+    <FilterStack.Navigator
+      screenOptions={{
+        headerTitleAlign: "center",
+      }}
+    >
+      <FilterStack.Screen name="FilterScreen" component={Filter} />
+    </FilterStack.Navigator>
+  );
+};
+
 const Tab = createBottomTabNavigator();
+
+const MainStackTabNavigation = () => {
+  return (
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
+      <Tab.Screen
+        name="MealsTab"
+        component={MealsStackScreen}
+        options={{
+          tabBarActiveTintColor: "#0979e8",
+          tabBarShowLabel: false,
+          tabBarIcon: ({ focused, color, size }) => {
+            return (
+              <MaterialIcons name="dinner-dining" size={size} color={color} />
+            );
+          },
+          tabBarButton: (props) => <TouchableOpacity {...props} />,
+        }}
+      />
+      <Tab.Screen
+        name="FavoriteTab"
+        component={FavoriteMealsStackScreen}
+        options={{
+          tabBarActiveTintColor: "#e64040",
+          tabBarShowLabel: false,
+          tabBarIcon: ({ focused, color, size }) => {
+            return <MaterialIcons name="favorite" size={size} color={color} />;
+          },
+          tabBarButton: (props) => <TouchableOpacity {...props} />,
+        }}
+      />
+    </Tab.Navigator>
+  );
+};
+
+const Drawer = createDrawerNavigator();
 
 export default function App() {
   const [isApploaded, setIsAppLoaded] = React.useState(false);
@@ -74,36 +125,12 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator screenOptions={{ headerShown: false }}>
-        <Tab.Screen
-          name="MealsTab"
-          component={MealsStackScreen}
-          options={{
-            tabBarActiveTintColor: "#0979e8",
-            tabBarShowLabel: false,
-            tabBarIcon: ({ focused, color, size }) => {
-              return (
-                <MaterialIcons name="dinner-dining" size={size} color={color} />
-              );
-            },
-            tabBarButton: (props) => <TouchableOpacity {...props} />,
-          }}
-        />
-        <Tab.Screen
-          name="FavoriteTab"
-          component={FavoriteMealsStackScreen}
-          options={{
-            tabBarActiveTintColor: "#e64040",
-            tabBarShowLabel: false,
-            tabBarIcon: ({ focused, color, size }) => {
-              return (
-                <MaterialIcons name="favorite" size={size} color={color} />
-              );
-            },
-            tabBarButton: (props) => <TouchableOpacity {...props} />,
-          }}
-        />
-      </Tab.Navigator>
+      <NavigationContainer independent={true}>
+        <Drawer.Navigator screenOptions={{ headerShown: false }}>
+          <Drawer.Screen name="Main" component={MainStackTabNavigation} />
+          <Drawer.Screen name="Filter" component={FilterStackScreen} />
+        </Drawer.Navigator>
+      </NavigationContainer>
     </NavigationContainer>
   );
 }
