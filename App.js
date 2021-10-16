@@ -1,55 +1,109 @@
-import React, { useState } from "react";
+import * as React from "react";
+import { TouchableOpacity } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { enableScreens } from "react-native-screens";
-
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { StyleSheet, Text, View } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AppLoading from "expo-app-loading";
-import { fetchFonts } from "./utils/fetchFonts";
-import DetailsMeals from "./screens/DetailsMeals";
+import { MaterialIcons } from "@expo/vector-icons";
+
+import FavoritesMeals from "./screens/FavoritesMeals";
+import FavoriteMeal from "./screens/FavoriteMeal";
 import Categories from "./screens/Categories";
+import DetailsMeals from "./screens/DetailsMeals";
 import Meal from "./screens/Meal";
+import { fetchFonts } from "./utils/fetchFonts";
 
-export default function App() {
-  enableScreens();
-  const [isApploaded, setIsAppLoaded] = useState(false);
-  const Stack = createNativeStackNavigator();
+const MealsStack = createNativeStackNavigator();
 
-  return isApploaded ? (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="Home"
-        screenOptions={{
-          headerTitleAlign: "center",
-        }}
-      >
-        <Stack.Screen name="Home" component={Categories} />
-        <Stack.Screen
-          name="Details"
-          component={DetailsMeals}
-          options={({ route }) => ({ title: route.params.title })}
-        />
-        <Stack.Screen
-          name="Meal"
-          component={Meal}
-          options={({ route }) => ({ title: route.params.title })}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-  ) : (
-    <AppLoading
-      startAsync={fetchFonts}
-      onFinish={() => setIsAppLoaded(true)}
-      onError={(error) => console.log(error)}
-    />
+function MealsStackScreen() {
+  return (
+    <MealsStack.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        headerTitleAlign: "center",
+      }}
+    >
+      <MealsStack.Screen name="Home" component={Categories} />
+      <MealsStack.Screen
+        name="Details"
+        component={DetailsMeals}
+        options={({ route }) => ({ title: route.params.title })}
+      />
+      <MealsStack.Screen
+        name="Meal"
+        component={Meal}
+        options={({ route }) => ({ title: route.params.title })}
+      />
+    </MealsStack.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+const FavoriteStack = createNativeStackNavigator();
+
+function FavoriteMealsStackScreen() {
+  return (
+    <FavoriteStack.Navigator
+      screenOptions={{
+        headerTitleAlign: "center",
+      }}
+    >
+      <FavoriteStack.Screen name="Favorite" component={FavoritesMeals} />
+      <FavoriteStack.Screen
+        name="FavoriteMeal"
+        component={FavoriteMeal}
+        options={({ route }) => ({ title: route.params.title })}
+      />
+    </FavoriteStack.Navigator>
+  );
+}
+
+const Tab = createBottomTabNavigator();
+
+export default function App() {
+  const [isApploaded, setIsAppLoaded] = React.useState(false);
+
+  if (!isApploaded) {
+    return (
+      <AppLoading
+        startAsync={fetchFonts}
+        onFinish={() => setIsAppLoaded(true)}
+        onError={(error) => console.log(error)}
+      />
+    );
+  }
+
+  return (
+    <NavigationContainer>
+      <Tab.Navigator screenOptions={{ headerShown: false }}>
+        <Tab.Screen
+          name="MealsTab"
+          component={MealsStackScreen}
+          options={{
+            tabBarActiveTintColor: "#0979e8",
+            tabBarShowLabel: false,
+            tabBarIcon: ({ focused, color, size }) => {
+              return (
+                <MaterialIcons name="dinner-dining" size={size} color={color} />
+              );
+            },
+            tabBarButton: (props) => <TouchableOpacity {...props} />,
+          }}
+        />
+        <Tab.Screen
+          name="FavoriteTab"
+          component={FavoriteMealsStackScreen}
+          options={{
+            tabBarActiveTintColor: "#e64040",
+            tabBarShowLabel: false,
+            tabBarIcon: ({ focused, color, size }) => {
+              return (
+                <MaterialIcons name="favorite" size={size} color={color} />
+              );
+            },
+            tabBarButton: (props) => <TouchableOpacity {...props} />,
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}

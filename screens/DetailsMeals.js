@@ -1,39 +1,13 @@
 import React from "react";
-import { Text, View, StyleSheet, FlatList } from "react-native";
-import RecipeItem from "../components/RecipeItem";
-import ScreenWrapper from "../components/ScreenWrapper";
+import MealsList from "../components/MealsList";
 import { MEALS } from "../data/dummy-data";
 
-const DetailsMeals = ({navigation, route}) => {
-  const recipes = MEALS.filter((meal) =>
+const DetailsMeals = ({ navigation, route }) => {
+  const meals = MEALS.filter((meal) =>
     meal.categoryIds.includes(route.params.categoryId)
   );
 
-  const recipeItem = ({ item }) => {
-    const { title, duration, imageUrl, complexity, affordability, id } = item;
-    const recipeProps = {
-      title,
-      duration,
-      imageUrl,
-      complexity,
-      affordability,
-      id,
-      navigation
-    };
-    return <RecipeItem {...recipeProps} />;
-  };
-
-  return (
-    <ScreenWrapper>
-      <FlatList data={recipes} renderItem={recipeItem} style={styles.root} />
-    </ScreenWrapper>
-  );
+  return <MealsList navigation={navigation} meals={meals} navigateTo="Meal" />;
 };
-
-const styles = StyleSheet.create({
-  root: {
-    paddingTop: 10,
-  },
-});
 
 export default DetailsMeals;

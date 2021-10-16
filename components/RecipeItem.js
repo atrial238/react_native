@@ -18,11 +18,12 @@ const RecipeItem = ({
   affordability,
   id,
   navigation,
+  navigateTo,
 }) => {
   return (
     <TouchableNativeFeedback
       onPress={() => {
-        navigation.navigate("Meal", { title: `${title}`, mealId: id });
+        navigation.navigate(navigateTo, { title: `${title}`, mealId: id });
       }}
       useForeground={true}
       background={TouchableNativeFeedback.Ripple("black")}
