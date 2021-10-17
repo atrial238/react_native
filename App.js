@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import AppLoading from "expo-app-loading";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Provider } from "react-redux";
 
 import FavoritesMeals from "./screens/FavoritesMeals";
 import FavoriteMeal from "./screens/FavoriteMeal";
@@ -14,6 +15,7 @@ import Categories from "./screens/Categories";
 import DetailsMeals from "./screens/DetailsMeals";
 import Meal from "./screens/Meal";
 import { fetchFonts } from "./utils/fetchFonts";
+import store from "./store/Store";
 
 const MealsStack = createNativeStackNavigator();
 
@@ -124,13 +126,15 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <NavigationContainer independent={true}>
-        <Drawer.Navigator screenOptions={{ headerShown: false }}>
-          <Drawer.Screen name="Main" component={MainStackTabNavigation} />
-          <Drawer.Screen name="Filter" component={FilterStackScreen} />
-        </Drawer.Navigator>
+    <Provider store={store}>
+      <NavigationContainer>
+        <NavigationContainer independent={true}>
+          <Drawer.Navigator screenOptions={{ headerShown: false }}>
+            <Drawer.Screen name="Main" component={MainStackTabNavigation} />
+            <Drawer.Screen name="Filter" component={FilterStackScreen} />
+          </Drawer.Navigator>
+        </NavigationContainer>
       </NavigationContainer>
-    </NavigationContainer>
+    </Provider>
   );
 }
