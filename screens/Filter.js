@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, StyleSheet } from "react-native";
 import { Item } from "react-navigation-header-buttons";
 import { AntDesignHeaderButtons } from "../components/AntDesignHeaderButtons";
 import FilterSwitch from "../components/FilterSwitch";
 import ScreenWrapper from "../components/ScreenWrapper";
 
-const Filter = ({ navigation }) => {
+const Filter = ({ navigation, route }) => {
+  const [stateFilter, setStateFilter] = useState({
+    isGlutenFree: false,
+    isLactoseFree: false,
+    isVegan: false,
+    isVegetarian: false,
+  });
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
@@ -19,35 +26,52 @@ const Filter = ({ navigation }) => {
           />
         </AntDesignHeaderButtons>
       ),
+      headerRight: () => (
+        <AntDesignHeaderButtons>
+          <Item
+            title="favorite"
+            iconName="save"
+            size={24}
+            color="black"
+            onPress={() => navigation.setParams({ save: stateFilter })}
+          />
+        </AntDesignHeaderButtons>
+      ),
     });
-  }, [navigation]);
+  }, [navigation, stateFilter]);
 
-  const [isGlutenFree, setIsGlutenFree] = useState(false);
-  const [isLactoseFree, setIsLactoseFree] = useState(false);
-  const [isVegan, setIsVegan] = useState(false);
-  const [isVegetarian, setIsVegetarian] = useState(false);
+  const { isGlutenFree, isLactoseFree, isVegan, isVegetarian } = stateFilter;
+
+  const setFilter = (newValue, itemName) => {
+    setStateFilter((state) => {
+      return {
+        ...state,
+        [itemName]: newValue,
+      };
+    });
+  };
 
   return (
     <ScreenWrapper>
       <FilterSwitch
         lable="Gluten-free"
         value={isGlutenFree}
-        onchange={(newValue) => setIsGlutenFree(newValue)}
+        onchange={(newValue) => setFilter(newValue, "isGlutenFree")}
       />
       <FilterSwitch
         lable="Lactose-free"
         value={isLactoseFree}
-        onchange={(newValue) => setIsLactoseFree(newValue)}
+        onchange={(newValue) => setFilter(newValue, "isLactoseFree")}
       />
       <FilterSwitch
         lable="Vegan"
         value={isVegan}
-        onchange={(newValue) => setIsVegan(newValue)}
+        onchange={(newValue) => setFilter(newValue, "isVegan")}
       />
       <FilterSwitch
         lable="Vegetearian"
         value={isVegetarian}
-        onchange={(newValue) => setIsVegetarian(newValue)}
+        onchange={(newValue) => setFilter(newValue, "isVegetarian")}
       />
     </ScreenWrapper>
   );
