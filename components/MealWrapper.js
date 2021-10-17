@@ -5,27 +5,36 @@ import { Text, StyleSheet, View, Image, Dimensions } from "react-native";
 import ScreenWrapper from "../components/ScreenWrapper";
 import { AntDesignHeaderButtons } from "../components/AntDesignHeaderButtons";
 import { ScrollView } from "react-native-gesture-handler";
+import { useSelector, useDispatch } from "react-redux";
+import { favoriteMealsAction, favoriteMealsDeleteAction } from "../store/Store";
 
 const MealWrapper = ({ navigation, meal }) => {
+  const dispatch = useDispatch();
+  const favoriteMeals = useSelector((state) => state.mealsState.favoriteMeals);
+
+  const isFavorite =
+    favoriteMeals.findIndex((mealFavorite) => mealFavorite.id === meal.id) >= 0;
+
   React.useLayoutEffect(() => {
+    const action = isFavorite ? favoriteMealsDeleteAction : favoriteMealsAction;
+
     navigation.setOptions({
       headerRight: () => (
         <AntDesignHeaderButtons>
           <Item
             title="favorite"
-            iconName="star"
+            iconName={isFavorite ? "star" : "staro"}
             size={24}
-            color="black"
-            onPress={() => console.log("added to favorite!")}
+            color={isFavorite ? "#fc9003" : "black"}
+            onPress={() => dispatch(action(isFavorite ? meal.id : meal))}
           />
         </AntDesignHeaderButtons>
       ),
     });
-  }, [navigation]);
+  }, [navigation, favoriteMeals]);
 
   const { duration, complexity, affordability, ingredients, imageUrl, steps } =
     meal;
-  console.log(steps);
   return (
     <ScreenWrapper>
       <ScrollView>

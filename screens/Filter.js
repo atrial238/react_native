@@ -1,12 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Text, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet } from "react-native";
 import { Item } from "react-navigation-header-buttons";
+import { useDispatch } from "react-redux";
+
 import { AntDesignHeaderButtons } from "../components/AntDesignHeaderButtons";
 import FilterSwitch from "../components/FilterSwitch";
 import ScreenWrapper from "../components/ScreenWrapper";
+import { filteredMealsAction } from "../store/Store";
 
 const Filter = ({ navigation, route }) => {
+  const dispatch = useDispatch();
+
   const [stateFilter, setStateFilter] = useState({
+    withoutFilter: true,
     isGlutenFree: false,
     isLactoseFree: false,
     isVegan: false,
@@ -33,14 +39,17 @@ const Filter = ({ navigation, route }) => {
             iconName="save"
             size={24}
             color="black"
-            onPress={() => navigation.setParams({ save: stateFilter })}
+            onPress={() => {
+              dispatch(filteredMealsAction(stateFilter));
+            }}
           />
         </AntDesignHeaderButtons>
       ),
     });
   }, [navigation, stateFilter]);
 
-  const { isGlutenFree, isLactoseFree, isVegan, isVegetarian } = stateFilter;
+  const { isGlutenFree, isLactoseFree, isVegan, isVegetarian, withoutFilter } =
+    stateFilter;
 
   const setFilter = (newValue, itemName) => {
     setStateFilter((state) => {
@@ -53,6 +62,11 @@ const Filter = ({ navigation, route }) => {
 
   return (
     <ScreenWrapper>
+      <FilterSwitch
+        lable="Without filter"
+        value={withoutFilter}
+        onchange={(newValue) => setFilter(newValue, "withoutFilter")}
+      />
       <FilterSwitch
         lable="Gluten-free"
         value={isGlutenFree}

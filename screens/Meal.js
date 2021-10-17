@@ -4,8 +4,9 @@ import { MEALS } from "../data/dummy-data";
 import MealWrapper from "../components/MealWrapper";
 
 const Meal = ({ navigation, route }) => {
-  const meal = MEALS.find((meal) => (meal.id = route.params.mealId));
-
+  const meal = MEALS.find((item) => {
+    return item.id === route.params.mealId;
+  });
   return <MealWrapper navigation={navigation} meal={meal} />;
 };
 
