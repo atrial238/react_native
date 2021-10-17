@@ -1,24 +1,20 @@
 import React from "react";
 import { Text, View, StyleSheet, FlatList } from "react-native";
 import { useSelector } from "react-redux";
+import ScreenWrapper from "../../components/common/ScreenWrapper";
+import ProductItem from "../../components/shop/ProductItem";
 
 const ProductsOverview = () => {
   const allProducts = useSelector((state) => state.allProducts);
   const renderItem = ({ item }) => {
-    return <Text>{item.title}</Text>;
+    return <ProductItem product={item} />;
   };
 
   return (
-    <View style={styles.root}>
+    <View style={{ flex: 1 }}>
       <FlatList data={allProducts} renderItem={renderItem} />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-  },
-});
 
 export default ProductsOverview;
