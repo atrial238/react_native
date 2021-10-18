@@ -17,13 +17,14 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderWidth: 3,
     backgroundColor: "#b30213",
-    padding: 5,
+    padding: 7,
   },
   text: {
     color: "white",
     textTransform: "uppercase",
-    fontWeight: "600",
+    fontWeight: "700",
     fontSize: 12,
+    letterSpacing: 1,
   },
 });
 

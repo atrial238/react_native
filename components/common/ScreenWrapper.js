@@ -7,8 +7,7 @@ const ScreenWrapper = ({ children }) => {
 
 const styles = StyleSheet.create({
   root: {
-    paddingHorizontal: 15,
-    paddingTop: 10,
+    flex: 1,
   },
 });
 

@@ -37,7 +37,15 @@ export function ShopStackScreen() {
         })}
       />
       <Shop.Screen name="shopCart" component={Cart} />
-      <Shop.Screen name="shopProductDetail" component={ProductDetails} />
+      <Shop.Screen
+        name="shopProductDetail"
+        component={ProductDetails}
+        options={({ route }) =>
+          console.log(route) || {
+            title: route.params.title,
+          }
+        }
+      />
     </Shop.Navigator>
   );
 }

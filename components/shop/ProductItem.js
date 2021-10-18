@@ -1,38 +1,54 @@
 import React from "react";
-import { Text, View, StyleSheet, Dimensions, Image } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Dimensions,
+  Image,
+  TouchableNativeFeedback,
+} from "react-native";
 import CustomButton from "../common/CustomButton";
 import Title from "../common/Title";
 
-const ProductItem = ({ product }) => {
-  console.log(product.imageUrl);
+const ProductItem = ({ product, navigation }) => {
+  const goToProductDetails = () => {
+    navigation.navigate("shopProductDetail", {
+      productId: product.id,
+      title: product.title,
+    });
+  };
   return (
     <View style={styles.root}>
-      <View style={styles.imageWrapper}>
-        <Image
-          source={{ uri: product.imageUrl }}
-          style={styles.image}
-          resizeMode="contain"
-        />
-      </View>
-      <View style={styles.contentWrapper}>
-        <Title style={styles.title}>{product.title}</Title>
-        <Text style={styles.price}>{product.price}</Text>
-        <View style={styles.buttonWrapper}>
-          <CustomButton lable="view details" />
-          <CustomButton lable="add to cart" />
+      <TouchableNativeFeedback useForeground onPress={goToProductDetails}>
+        <View>
+          <View style={styles.imageWrapper}>
+            <Image
+              source={{ uri: product.imageUrl }}
+              style={styles.image}
+              resizeMode="contain"
+            />
+          </View>
+          <View style={styles.contentWrapper}>
+            <Title style={styles.title}>{product.title}</Title>
+            <Text style={styles.price}>{product.price}</Text>
+            <View style={styles.buttonWrapper}>
+              <CustomButton lable="view details" onPress={goToProductDetails} />
+              <CustomButton lable="add to cart" />
+            </View>
+          </View>
         </View>
-      </View>
+      </TouchableNativeFeedback>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   root: {
-    //  width: Dimensions.get("window").width * 0.9,
     borderRadius: 10,
     elevation: 5,
     margin: 20,
     backgroundColor: "#fff",
+    overflow: "hidden",
   },
   imageWrapper: {
     width: "100%",
