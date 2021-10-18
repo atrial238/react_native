@@ -1,10 +1,10 @@
 import React from "react";
 import { Text, View, StyleSheet, TouchableNativeFeedback } from "react-native";
 
-const CustomButton = ({ lable, onPress }) => {
+const CustomButton = ({ lable, onPress, style, ...rest }) => {
   return (
     <TouchableNativeFeedback onPress={onPress}>
-      <View style={styles.root}>
+      <View style={{ ...styles.root, ...style }} {...rest}>
         <Text style={styles.text}>{lable}</Text>
       </View>
     </TouchableNativeFeedback>

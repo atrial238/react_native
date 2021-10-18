@@ -21,6 +21,9 @@ export function ShopStackScreen() {
     <Shop.Navigator
       screenOptions={{
         headerTitleAlign: "center",
+        headerStyle: {
+          backgroundColor: "#c93c4a",
+        },
       }}
     >
       <Shop.Screen
