@@ -7,10 +7,14 @@ import {
   Image,
   TouchableNativeFeedback,
 } from "react-native";
+import { useDispatch } from "react-redux";
+import { addtoCart } from "../../store/slice/cart";
 import CustomButton from "../common/CustomButton";
 import Title from "../common/Title";
 
 const ProductItem = ({ product, navigation }) => {
+  const dispatch = useDispatch();
+
   const goToProductDetails = () => {
     navigation.navigate("shopProductDetail", {
       productId: product.id,
@@ -33,7 +37,10 @@ const ProductItem = ({ product, navigation }) => {
             <Text style={styles.price}>{product.price}</Text>
             <View style={styles.buttonWrapper}>
               <CustomButton lable="view details" onPress={goToProductDetails} />
-              <CustomButton lable="add to cart" />
+              <CustomButton
+                lable="add to cart"
+                onPress={() => dispatch(addtoCart(product))}
+              />
             </View>
           </View>
         </View>

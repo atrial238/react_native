@@ -6,6 +6,8 @@ import ProductItem from "../../components/shop/ProductItem";
 
 const ProductsOverview = ({ navigation }) => {
   const allProducts = useSelector((state) => state.allProducts);
+  const cart = useSelector((state) => state.cart);
+  console.log(cart, "cart was added");
   const renderItem = ({ item }) => {
     return <ProductItem product={item} navigation={navigation} />;
   };
