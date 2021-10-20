@@ -10,10 +10,10 @@ const MatirialButton = (props) => (
   <HeaderButton IconComponent={MaterialIcons} iconSize={23} {...props} />
 );
 
-const MaterialHeaderButton = ({ title, iconName, onPress }) => {
+const MaterialHeaderButton = ({ title, iconName, onPress, color }) => {
   return (
     <HeaderButtons HeaderButtonComponent={MatirialButton}>
-      <Item title={title} iconName={iconName} onPress={onPress} />
+      <Item title={title} iconName={iconName} onPress={onPress} color={color} />
     </HeaderButtons>
   );
 };

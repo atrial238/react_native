@@ -9,7 +9,6 @@ export const cartSlice = createSlice({
       const existingProductIndex = state.findIndex(
         (product) => action.payload.id === product.data.id
       );
-
       if (existingProductIndex >= 0) {
         state[existingProductIndex] = {
           totalCount: state[existingProductIndex].totalCount + 1,

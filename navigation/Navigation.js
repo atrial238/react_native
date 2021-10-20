@@ -24,6 +24,10 @@ export function ShopStackScreen() {
         headerStyle: {
           backgroundColor: "#c93c4a",
         },
+        headerTitleStyle: {
+          color: "white",
+        },
+        headerTintColor: "#fff",
       }}
     >
       <Shop.Screen
@@ -34,12 +38,17 @@ export function ShopStackScreen() {
             <MaterialHeaderButton
               title="menu"
               iconName="menu-book"
+              color="white"
               onPress={() => navigation.toggleDrawer()}
             />
           ),
         })}
       />
-      <Shop.Screen name="shopCart" component={Cart} />
+      <Shop.Screen
+        name="shopCart"
+        component={Cart}
+        options={{ title: "Cart" }}
+      />
       <Shop.Screen
         name="shopProductDetail"
         component={ProductDetails}

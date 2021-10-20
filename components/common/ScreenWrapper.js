@@ -8,6 +8,8 @@ const ScreenWrapper = ({ children }) => {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+    alignItems: "center",
+    width: "100%",
   },
 });
 
