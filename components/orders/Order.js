@@ -1,9 +1,12 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Dimensions } from "react-native";
+import ItemCart from "../cart/ItemCart";
 import CustomButton from "../common/CustomButton";
 import Subtitle from "../common/Subtitle";
 
 const Order = ({ order }) => {
+  const [showDetails, setShowDetails] = React.useState(false);
+
   return (
     <View style={styles.root}>
       <View style={styles.text}>
@@ -11,8 +14,25 @@ const Order = ({ order }) => {
         <Text>{order.date}</Text>
       </View>
       <View style={styles.buttonWrapper}>
-        <CustomButton lable="show details" />
+        <CustomButton
+          lable="show details"
+          onPress={() => setShowDetails((state) => !state)}
+        />
       </View>
+      {showDetails && (
+        <View style={styles.detailsWrapper}>
+          {order.data.map((cartItem) => (
+            <ItemCart
+              amount={cartItem.totalCount}
+              title={cartItem.data.title}
+              price={cartItem.data.price}
+              productId={cartItem.data.id}
+              withoutDeleteBtn
+              key={Date.now().toString()}
+            />
+          ))}
+        </View>
+      )}
     </View>
   );
 };
@@ -34,6 +54,9 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     justifyContent: "center",
     alignItems: "center",
+  },
+  detailsWrapper: {
+    paddingHorizontal: Dimensions.get("window").width * 0.05,
   },
 });
 
