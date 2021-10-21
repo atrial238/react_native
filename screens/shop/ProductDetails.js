@@ -1,16 +1,21 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Text, View, StyleSheet, Image, Dimensions } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
 import CustomButton from "../../components/common/CustomButton";
 import ScreenWrapper from "../../components/common/ScreenWrapper";
+import { addtoCart } from "../../store/slice/cart";
+import useCartHeaderButton from "../../hooks/useCartHeaderButton";
 
-const ProductDetails = ({ route }) => {
+const ProductDetails = ({ navigation, route }) => {
+  const dispatch = useDispatch();
   const productId = route.params.productId;
+  const cart = useSelector((state) => state.cart);
   const product = useSelector((state) =>
     state.allProducts.find((product) => product.id === productId)
   );
+  useCartHeaderButton(navigation, cart);
 
   return (
     <ScreenWrapper>
@@ -23,7 +28,11 @@ const ProductDetails = ({ route }) => {
               resizeMode="contain"
             />
           </View>
-          <CustomButton lable="add to cart" style={styles.button} />
+          <CustomButton
+            lable="add to cart"
+            style={styles.button}
+            onPress={() => dispatch(addtoCart(product))}
+          />
           <Text style={styles.price}>$ {product.price}</Text>
           <View style={styles.description}>
             <Text style={styles.descriptionText}>{product.description}</Text>

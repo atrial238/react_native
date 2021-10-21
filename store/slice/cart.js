@@ -23,7 +23,20 @@ export const cartSlice = createSlice({
         state.push({ totalCount: 1, data: action.payload });
       }
     },
-    deleteFromCart: (state, action) => {},
+    deleteFromCart: (state, action) => {
+      if (action.payload.amount > 1) {
+        state.forEach((product) => {
+          if (product.data.id === action.payload.productId) {
+            product.totalCount -= 1;
+            product.data.price = product.data.price / product.totalCount;
+          }
+        });
+        return state;
+      }
+      return state.filter(
+        (product) => product.data.id !== action.payload.productId
+      );
+    },
   },
 });
 

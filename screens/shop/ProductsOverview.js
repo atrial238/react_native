@@ -4,25 +4,13 @@ import { useSelector } from "react-redux";
 import ScreenWrapper from "../../components/common/ScreenWrapper";
 import MaterialHeaderButton from "../../components/hederButtons/MaterialHeaderButton";
 import ProductItem from "../../components/shop/ProductItem";
+import useCartHeaderButton from "../../hooks/useCartHeaderButton";
 
 const ProductsOverview = ({ navigation }) => {
   const allProducts = useSelector((state) => state.allProducts);
   const cart = useSelector((state) => state.cart);
 
-  React.useLayoutEffect(() => {
-    const icon = cart.length ? "add-shopping-cart" : "shopping-cart";
-    navigation.setOptions({
-      headerRight: () => (
-        <MaterialHeaderButton
-          title="cart"
-          iconName={icon}
-          color="white"
-          onPress={() => navigation.navigate("shopCart")}
-        />
-      ),
-      title: "Products",
-    });
-  }, [navigation, cart.length]);
+  useCartHeaderButton(navigation, cart);
 
   const renderItem = ({ item }) => {
     return <ProductItem product={item} navigation={navigation} />;

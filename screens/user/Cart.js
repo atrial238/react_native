@@ -11,16 +11,6 @@ const Cart = () => {
   const totalPrice =
     Math.floor(cart.reduce((acc, product) => acc + product.data.price, 0)) || 0;
 
-  const renderItem = ({ item }) => {
-    return (
-      <ItemCart
-        amount={item.totalCount}
-        title={item.data.title}
-        price={item.data.price}
-      />
-    );
-  };
-
   return (
     <ScreenWrapper>
       <View style={styles.root}>
@@ -34,7 +24,14 @@ const Cart = () => {
         <FlatList
           data={cart}
           contentContainerStyle={styles.orderWrapper}
-          renderItem={renderItem}
+          renderItem={({ item }) => (
+            <ItemCart
+              amount={item.totalCount}
+              title={item.data.title}
+              price={item.data.price}
+              productId={item.data.id}
+            />
+          )}
           keyExtractor={(item) => item.data.id}
           numColumns={1}
         />

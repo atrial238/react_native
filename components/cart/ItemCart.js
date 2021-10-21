@@ -4,8 +4,11 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 import ButtonIcon from "../common/ButtonIcon";
 import Subtitle from "../common/Subtitle";
+import { deleteFromCart } from "../../store/slice/cart";
+import { useDispatch } from "react-redux";
 
-const ItemCart = ({ amount, title, price }) => {
+const ItemCart = ({ amount, title, price, productId }) => {
+  const dispatch = useDispatch();
   const trueTitle = title.length > 20 ? title.slice(0, 20) + "...." : title;
   return (
     <View style={styles.wrapper}>
@@ -17,6 +20,7 @@ const ItemCart = ({ amount, title, price }) => {
         <Subtitle style={styles.price}>{price}</Subtitle>
         <ButtonIcon
           icon={<MaterialIcons name="delete" size={24} color="red" />}
+          onPress={() => dispatch(deleteFromCart({ productId, amount }))}
         />
       </View>
     </View>
