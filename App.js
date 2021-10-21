@@ -7,6 +7,7 @@ import {
   UserProductStackScreen,
 } from "./navigation/Navigation";
 import { Provider } from "react-redux";
+import { MaterialIcons } from "@expo/vector-icons";
 import store from "./store/store/store";
 
 const Drawer = createDrawerNavigator();
@@ -20,8 +21,28 @@ export default function App() {
             headerShown: false,
           })}
         >
-          <Drawer.Screen name="shop" component={ShopStackScreen} />
-          <Drawer.Screen name="orders" component={OrdersStackScreen} />
+          <Drawer.Screen
+            name="shop"
+            component={ShopStackScreen}
+            options={{
+              drawerIcon: ({ size, color }) => (
+                <MaterialIcons name="shopping-cart" size={size} color={color} />
+              ),
+            }}
+          />
+          <Drawer.Screen
+            name="orders"
+            component={OrdersStackScreen}
+            options={{
+              drawerIcon: ({ size, color }) => (
+                <MaterialIcons
+                  name="format-list-bulleted"
+                  size={size}
+                  color={color}
+                />
+              ),
+            }}
+          />
           <Drawer.Screen name="user" component={UserProductStackScreen} />
         </Drawer.Navigator>
       </NavigationContainer>

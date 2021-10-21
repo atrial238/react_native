@@ -52,11 +52,9 @@ export function ShopStackScreen() {
       <Shop.Screen
         name="shopProductDetail"
         component={ProductDetails}
-        options={({ route }) =>
-          console.log(route) || {
-            title: route.params.title,
-          }
-        }
+        options={({ route }) => ({
+          title: route.params.title,
+        })}
       />
     </Shop.Navigator>
   );
@@ -67,16 +65,25 @@ export function OrdersStackScreen() {
     <Orders.Navigator
       screenOptions={{
         headerTitleAlign: "center",
+        headerStyle: {
+          backgroundColor: "#c93c4a",
+        },
+        headerTitleStyle: {
+          color: "white",
+        },
+        headerTintColor: "#fff",
       }}
     >
       <Orders.Screen
         name="userOrdersHistory"
         component={OrdersHistory}
         options={({ navigation }) => ({
+          title: "Order history",
           headerLeft: () => (
             <MaterialHeaderButton
               title="menu"
               iconName="menu-book"
+              color="white"
               onPress={() => navigation.toggleDrawer()}
             />
           ),
@@ -91,6 +98,13 @@ export function UserProductStackScreen() {
     <UserProduct.Navigator
       screenOptions={{
         headerTitleAlign: "center",
+        headerStyle: {
+          backgroundColor: "#c93c4a",
+        },
+        headerTitleStyle: {
+          color: "white",
+        },
+        headerTintColor: "#fff",
       }}
     >
       <UserProduct.Screen

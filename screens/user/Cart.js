@@ -1,15 +1,25 @@
 import React from "react";
 import { View, StyleSheet, FlatList, Dimensions } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ItemCart from "../../components/cart/ItemCart";
 import CustomButton from "../../components/common/CustomButton";
 import ScreenWrapper from "../../components/common/ScreenWrapper";
 import Title from "../../components/common/Title";
+import { resetCart } from "../../store/slice/cart";
+import { addOrders } from "../../store/slice/orders";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
   const totalPrice =
     Math.floor(cart.reduce((acc, product) => acc + product.data.price, 0)) || 0;
+
+  const addOrdersHandler = (totalPrice, data) => {
+    const id = Date.now().toString();
+    const date = new Date();
+    dispatch(addOrders({ totalPrice, data, id, date: date.toString() }));
+    dispatch(resetCart());
+  };
 
   return (
     <ScreenWrapper>
@@ -19,7 +29,10 @@ const Cart = () => {
             <Title>Total</Title>
             <Title style={styles.price}>{totalPrice}</Title>
           </View>
-          <CustomButton lable="Order" />
+          <CustomButton
+            lable="Order"
+            onPress={() => addOrdersHandler(totalPrice, cart)}
+          />
         </View>
         <FlatList
           data={cart}
