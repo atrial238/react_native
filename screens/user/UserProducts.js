@@ -1,14 +1,30 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
+import { useSelector } from "react-redux";
+import ScreenWrapper from "../../components/common/ScreenWrapper";
+import ProductItem from "../../components/shop/ProductItem";
 
-const UserProducts = () => {
+const UserProducts = ({ navigation }) => {
+  const userProducts = useSelector((state) => state.products.userProducts);
+  console.log(userProducts);
   return (
-    <View>
-      <Text>UserProducts</Text>
-    </View>
+    <ScreenWrapper>
+      <View style={styles.root}>
+        <FlatList
+          data={userProducts}
+          renderItem={({ item }) => (
+            <ProductItem product={item} navigation={navigation} />
+          )}
+        />
+      </View>
+    </ScreenWrapper>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  root: {
+    width: "90%",
+  },
+});
 
 export default UserProducts;

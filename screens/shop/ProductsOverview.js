@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, StyleSheet, FlatList } from "react-native";
+import { FlatList } from "react-native";
 import { useSelector } from "react-redux";
 import ScreenWrapper from "../../components/common/ScreenWrapper";
 import MaterialHeaderButton from "../../components/hederButtons/MaterialHeaderButton";
@@ -7,7 +7,7 @@ import ProductItem from "../../components/shop/ProductItem";
 import useCartHeaderButton from "../../hooks/useCartHeaderButton";
 
 const ProductsOverview = ({ navigation }) => {
-  const allProducts = useSelector((state) => state.allProducts);
+  const allProducts = useSelector((state) => state.products.allProducts);
   const cart = useSelector((state) => state.cart);
 
   useCartHeaderButton(navigation, cart);

@@ -43,7 +43,19 @@ export default function App() {
               ),
             }}
           />
-          <Drawer.Screen name="user" component={UserProductStackScreen} />
+          <Drawer.Screen
+            name="user"
+            component={UserProductStackScreen}
+            options={{
+              drawerIcon: ({ size, color }) => (
+                <MaterialIcons
+                  name="supervised-user-circle"
+                  size={size}
+                  color={color}
+                />
+              ),
+            }}
+          />
         </Drawer.Navigator>
       </NavigationContainer>
     </Provider>

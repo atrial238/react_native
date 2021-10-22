@@ -2,8 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import PRODUCTS from "../../data/dummy-data";
 
 export const productsSlice = createSlice({
-  name: "allProducts",
-  initialState: PRODUCTS,
+  name: "products",
+  initialState: {
+    allProducts: PRODUCTS,
+    userProducts: PRODUCTS.filter((product) => product.ownerId === "u1"),
+  },
   reducers: {
     createProduct: (state, action) => {},
     updateProduct: (state, action) => {},

@@ -6,7 +6,7 @@ import OrderReducer from "../slice/orders";
 
 export default configureStore({
   reducer: {
-    allProducts: ProductReducer,
+    products: ProductReducer,
     cart: CartReducer,
     orders: OrderReducer,
   },

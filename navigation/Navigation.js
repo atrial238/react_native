@@ -115,6 +115,7 @@ export function UserProductStackScreen() {
             <MaterialHeaderButton
               title="menu"
               iconName="menu-book"
+              color="white"
               onPress={() => navigation.toggleDrawer()}
             />
           ),
