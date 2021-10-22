@@ -24,7 +24,7 @@ const ProductsOverview = ({ navigation }) => {
   const addToCartProduct = (product) => {
     dispatch(addtoCart(product));
   };
-
+  
   const renderItem = ({ item }) => {
     return (
       <ProductItem

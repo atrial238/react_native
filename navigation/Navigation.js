@@ -133,12 +133,16 @@ export function UserProductStackScreen() {
       <UserProduct.Screen
         name="userEditOwnProduct"
         component={EditProduct}
-        options={() => ({ title: "Edit product" })}
+        options={({ navigation, route }) => ({
+          title: "Edit product",
+        })}
       />
       <UserProduct.Screen
         name="userCreateProduct"
         component={EditProduct}
-        options={() => ({ title: "Create product" })}
+        options={({ navigation, route }) => ({
+          title: "Create product",
+        })}
       />
     </UserProduct.Navigator>
   );
