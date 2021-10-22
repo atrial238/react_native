@@ -10,7 +10,16 @@ export const productsSlice = createSlice({
   reducers: {
     createProduct: (state, action) => {},
     updateProduct: (state, action) => {},
-    deleteProduct: (state, action) => {},
+    deleteProduct: (state, { payload }) => {
+      return {
+        userProducts: state.userProducts.filter(
+          (product) => product.id !== payload
+        ),
+        allProducts: state.userProducts.filter(
+          (product) => product.id !== payload
+        ),
+      };
+    },
   },
 });
 
