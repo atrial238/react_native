@@ -4,9 +4,10 @@ import { useSelector } from "react-redux";
 import ScreenWrapper from "../../components/common/ScreenWrapper";
 import ProductItem from "../../components/shop/ProductItem";
 
-const UserProducts = ({ navigation }) => {
+const UserProducts = ({ navigation, route }) => {
   const userProducts = useSelector((state) => state.products.userProducts);
-  console.log(userProducts);
+  console.log(route, navigation);
+
   return (
     <ScreenWrapper>
       <View style={styles.root}>

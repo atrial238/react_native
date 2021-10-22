@@ -111,6 +111,7 @@ export function UserProductStackScreen() {
         name="userOwnProduct"
         component={UserProducts}
         options={({ navigation }) => ({
+          title: "Your Products",
           headerLeft: () => (
             <MaterialHeaderButton
               title="menu"

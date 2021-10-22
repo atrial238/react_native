@@ -9,11 +9,10 @@ import { addtoCart } from "../../store/slice/cart";
 import useCartHeaderButton from "../../hooks/useCartHeaderButton";
 
 const ProductDetails = ({ navigation, route }) => {
-  const dispatch = useDispatch();
   const productId = route.params.productId;
   const cart = useSelector((state) => state.cart);
   const product = useSelector((state) =>
-    state.allProducts.find((product) => product.id === productId)
+    state.products.allProducts.find((product) => product.id === productId)
   );
   useCartHeaderButton(navigation, cart);
 

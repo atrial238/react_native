@@ -8,22 +8,18 @@ import {
   TouchableNativeFeedback,
 } from "react-native";
 import { useDispatch } from "react-redux";
-import { addtoCart } from "../../store/slice/cart";
 import CustomButton from "../common/CustomButton";
 import Title from "../common/Title";
 
-const ProductItem = ({ product, navigation }) => {
+const ProductItem = ({ product, leftButton, rightButton }) => {
   const dispatch = useDispatch();
 
-  const goToProductDetails = () => {
-    navigation.navigate("shopProductDetail", {
-      productId: product.id,
-      title: product.title,
-    });
-  };
   return (
     <View style={styles.root}>
-      <TouchableNativeFeedback useForeground onPress={goToProductDetails}>
+      <TouchableNativeFeedback
+        useForeground
+        onPress={() => leftButton.onPress(product)}
+      >
         <View>
           <View style={styles.imageWrapper}>
             <Image
@@ -36,10 +32,13 @@ const ProductItem = ({ product, navigation }) => {
             <Title style={styles.title}>{product.title}</Title>
             <Text style={styles.price}>{product.price}</Text>
             <View style={styles.buttonWrapper}>
-              <CustomButton lable="view details" onPress={goToProductDetails} />
               <CustomButton
-                lable="add to cart"
-                onPress={() => dispatch(addtoCart(product))}
+                lable={leftButton.lable}
+                onPress={() => leftButton.onPress(product)}
+              />
+              <CustomButton
+                lable={rightButton.lable}
+                onPress={() => rightButton.onPress(product)}
               />
             </View>
           </View>
