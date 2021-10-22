@@ -120,9 +120,26 @@ export function UserProductStackScreen() {
               onPress={() => navigation.toggleDrawer()}
             />
           ),
+          headerRight: () => (
+            <MaterialHeaderButton
+              title="create product"
+              iconName="add-box"
+              color="white"
+              onPress={() => navigation.navigate("userCreateProduct")}
+            />
+          ),
         })}
       />
-      <UserProduct.Screen name="userEditOwnProduct" component={EditProduct} />
+      <UserProduct.Screen
+        name="userEditOwnProduct"
+        component={EditProduct}
+        options={() => ({ title: "Edit product" })}
+      />
+      <UserProduct.Screen
+        name="userCreateProduct"
+        component={EditProduct}
+        options={() => ({ title: "Create product" })}
+      />
     </UserProduct.Navigator>
   );
 }

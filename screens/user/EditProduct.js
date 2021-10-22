@@ -1,10 +1,12 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 
-const EditProduct = () => {
+const EditProduct = ({ navigation, route }) => {
+  const productId = route.params;
+  console.log(route);
   return (
     <View>
-      <Text></Text>
+      <Text>{`${productId ? " edit" : " create"}`}</Text>
     </View>
   );
 };

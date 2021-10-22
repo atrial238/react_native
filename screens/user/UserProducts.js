@@ -24,7 +24,11 @@ const UserProducts = ({ navigation, route }) => {
               product={item}
               leftButton={{
                 lable: "edit product",
-                onPress: () => {},
+                onPress: () => {
+                  navigation.navigate("userEditOwnProduct", {
+                    productId: item.id,
+                  });
+                },
               }}
               rightButton={{ lable: "delete", onPress: deleteMyProduct }}
             />

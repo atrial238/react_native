@@ -44,12 +44,12 @@ export default function App() {
             }}
           />
           <Drawer.Screen
-            name="user"
+            name="admin"
             component={UserProductStackScreen}
             options={{
               drawerIcon: ({ size, color }) => (
                 <MaterialIcons
-                  name="supervised-user-circle"
+                  name="admin-panel-settings"
                   size={size}
                   color={color}
                 />
