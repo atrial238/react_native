@@ -11,7 +11,7 @@ const ProductsOverview = ({ navigation }) => {
   const allProducts = useSelector((state) => state.products.allProducts);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-
+  console.log(allProducts);
   useCartHeaderButton(navigation, cart);
 
   const goToProductDetails = (product) => {
@@ -24,7 +24,7 @@ const ProductsOverview = ({ navigation }) => {
   const addToCartProduct = (product) => {
     dispatch(addtoCart(product));
   };
-  
+
   const renderItem = ({ item }) => {
     return (
       <ProductItem

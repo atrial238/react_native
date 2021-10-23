@@ -7,13 +7,10 @@ import {
   Image,
   TouchableNativeFeedback,
 } from "react-native";
-import { useDispatch } from "react-redux";
 import CustomButton from "../common/CustomButton";
 import Title from "../common/Title";
 
 const ProductItem = ({ product, leftButton, rightButton }) => {
-  const dispatch = useDispatch();
-
   return (
     <View style={styles.root}>
       <TouchableNativeFeedback

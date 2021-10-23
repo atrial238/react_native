@@ -8,6 +8,9 @@ import {
 } from "./navigation/Navigation";
 import { Provider } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
+import { LogBox } from "react-native";
+LogBox.ignoreLogs(["Reanimated 2"]);
+
 import store from "./store/store/store";
 
 const Drawer = createDrawerNavigator();
