@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, ScrollView, TextInput } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Subtitle from "../../components/common/Subtitle";
 import MaterialHeaderButton from "../../components/hederButtons/MaterialHeaderButton";
-import { createProduct, updateProduct } from "../../store/slice/products";
+import {
+  addUserProducts,
+  //   createProduct,
+  updateProduct,
+} from "../../store/slice/products";
 
 const EditProduct = ({ navigation, route }) => {
   const productId = route.params?.productId;
   const dispatch = useDispatch();
   const editProduct = useSelector((state) =>
-    state.products.userProducts.find((product) => product.id === productId)
+    state.products.userProducts?.find((product) => product.id === productId)
   );
 
   const [stateInputs, setStateInputs] = useState({
@@ -26,8 +30,10 @@ const EditProduct = ({ navigation, route }) => {
   const submitHandler = () => {
     editProduct
       ? dispatch(updateProduct({ id: productId, data: stateInputs }))
-      : dispatch(createProduct({ ...stateInputs }));
-    navigation.navigate("userOwnProduct");
+      : dispatch(addUserProducts({ ...stateInputs }));
+
+    // : dispatch(createProduct({ ...stateInputs }));
+    //  navigation.navigate("userOwnProduct");
   };
 
   React.useLayoutEffect(() => {

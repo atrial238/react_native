@@ -1,18 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
-import PRODUCTS from "../../data/dummy-data";
+import { getItems, postItem, updateItem } from "../../API/api";
+import { objectToArray } from "../../utils/objectToArray";
 
 export const productsSlice = createSlice({
   name: "products",
   initialState: {
-    allProducts: PRODUCTS,
-    userProducts: PRODUCTS.filter((product) => product.ownerId === "u1"),
+    allProducts: [],
+    userProducts: [],
   },
   reducers: {
+    setAllProducts: (state, action) => {
+      state.allProducts = action.payload;
+    },
+    setUserProducts: (state, action) => {
+      state.userProducts = action.payload;
+    },
     createProduct: (state, action) => {
-      const { title, imageUrl, description, price } = action.payload;
-      const id = state.allProducts.length + 1;
+      const { title, imageUrl, description, price, id } = action.payload;
       const product = {
-        id: `p${id}`,
+        id,
         ownerId: "u1",
         title,
         imageUrl,
@@ -50,7 +56,33 @@ export const productsSlice = createSlice({
   },
 });
 
-export const { deleteProduct, updateProduct, createProduct } =
-  productsSlice.actions;
+export const {
+  deleteProduct,
+  updateProduct,
+  createProduct,
+  setAllProducts,
+  setUserProducts,
+} = productsSlice.actions;
+
+export const fetchAllProducts = () => async (dispatch) => {
+  const response = await getItems("allProducts.json");
+  response.data && dispatch(setAllProducts(objectToArray(response.data)));
+};
+
+export const fetchUserProducts = () => async (dispatch) => {
+  const response = await getItems("userProducts.json");
+  response.data && dispatch(setUserProducts(objectToArray(response.data)));
+};
+
+export const addUserProducts = (data) => async (dispatch) => {
+  const responseAddProducts = await postItem("userProducts.json", data);
+  const newProductId = responseAddProducts.data.name;
+  const responseAddAllProducts = await updateItem(
+    `allProducts/${newProductId}.json`
+  );
+  data.id = newProductId;
+  console.log(responseAddAllProducts);
+  dispatch(createProduct(data));
+};
 
 export default productsSlice.reducer;

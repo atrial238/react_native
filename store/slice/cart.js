@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import PRODUCTS from "../../data/dummy-data";
 
 export const cartSlice = createSlice({
   name: "cart",

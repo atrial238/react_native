@@ -4,16 +4,20 @@ import { useDispatch, useSelector } from "react-redux";
 import ScreenWrapper from "../../components/common/ScreenWrapper";
 import ProductItem from "../../components/shop/ProductItem";
 import { deleteFromCart } from "../../store/slice/cart";
-import { deleteProduct } from "../../store/slice/products";
+// import { deleteProduct, fetchUserProducts } from "../../store/slice/products";
 
-const UserProducts = ({ navigation, route }) => {
+const UserProducts = ({ navigation }) => {
   const dispatch = useDispatch();
   const userProducts = useSelector((state) => state.products.userProducts);
+  //   useEffect(() => {
+  //     dispatch(fetchUserProducts());
+  //   }, []);
 
   const deleteMyProduct = (product) => {
-    dispatch(deleteProduct(product.id));
+    //  dispatch(deleteProduct(product.id));
     dispatch(deleteFromCart({ productId: product.id, forceDelete: true }));
   };
+
   return (
     <ScreenWrapper>
       <View style={styles.root}>
