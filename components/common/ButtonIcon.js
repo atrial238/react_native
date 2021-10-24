@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, StyleSheet, TouchableNativeFeedback } from "react-native";
+import { View, StyleSheet, TouchableNativeFeedback } from "react-native";
 
 const ButtonIcon = ({ onPress, style, icon, ...rest }) => {
   return (
