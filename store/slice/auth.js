@@ -25,7 +25,6 @@ export const signUser = (data, mehtod) => async (dispatch) => {
   const methodAPI = authAPI[mehtod];
   try {
     const response = await methodAPI(data);
-    console.log(response, "|||", `signUser ${mehtod}`);
     const { idToken, expiresIn, localId, refreshToken } = response.data;
     const responseData = {
       idToken,
@@ -38,8 +37,10 @@ export const signUser = (data, mehtod) => async (dispatch) => {
     await AsyncStorage.setItem("user", JSON.stringify(responseData));
     response.data && dispatch(setAuthUser(responseData));
     refreshTokenThunk(expiresIn * 1000 - 5000);
+    return response;
   } catch (e) {
     console.log(e);
+    return e;
   }
 };
 

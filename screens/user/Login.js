@@ -23,8 +23,12 @@ const Login = ({ navigation }) => {
   };
 
   const submitAuthCredential = async () => {
-    await dispatch(signUser(credentialsData, sign));
-    navigation.navigate("main");
+    try {
+      await dispatch(signUser(credentialsData, sign));
+      navigation.navigate("main");
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

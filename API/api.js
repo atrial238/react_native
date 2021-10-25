@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_KEY } from "../constants/constant";
+import { getObjectFromStore } from "../utils/getObjectFromStore";
 
 const instance = axios.create({
   baseURL: "https://shop-app-afd4d-default-rtdb.firebaseio.com/",
@@ -7,15 +8,18 @@ const instance = axios.create({
 });
 
 export const getItems = async (endpoint) => {
-  return await instance.get(endpoint);
+  const { idToken } = await getObjectFromStore("user");
+  return await instance.get(`${endpoint}?auth=${idToken}`);
 };
 
 export const postItem = async (endpoint, data) => {
-  return await instance.post(endpoint, data);
+  const { idToken } = await getObjectFromStore("user");
+  return await instance.post(`${endpoint}?auth=${idToken}`, data);
 };
 
 export const updateItem = async (endpoint, data) => {
-  return await instance.put(endpoint, data);
+  const { idToken } = await getObjectFromStore("user");
+  return await instance.put(`${endpoint}?auth=${idToken}`, data);
 };
 
 export const authAPI = {

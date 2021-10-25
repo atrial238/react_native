@@ -5,6 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { refreshTokenThunk } from "../store/slice/auth";
 import addMilliseconds from "date-fns/addMilliseconds";
 import differenceInMilliseconds from "date-fns/differenceInMilliseconds";
+import toDate from "date-fns/toDate";
 
 const PreloaderScreen = ({ navigation }) => {
   useEffect(() => {
@@ -13,8 +14,12 @@ const PreloaderScreen = ({ navigation }) => {
 
       const userData = (user && JSON.parse(user)) || {};
       const { idToken, expiresIn, createdAt } = userData;
-      const expirationDate = addMilliseconds(createdAt, expiresIn * 1000);
-      if (idToken && compareAsc(expirationDate, new Date()) === -1) {
+      const expirationDate = addMilliseconds(
+        toDate(createdAt),
+        expiresIn * 1000
+      );
+
+      if (idToken && compareAsc(expirationDate, new Date()) === 1) {
         navigation.navigate("main");
         refreshTokenThunk(
           differenceInMilliseconds(expirationDate, new Date()) - 5000
@@ -22,6 +27,7 @@ const PreloaderScreen = ({ navigation }) => {
       } else if (idToken) {
         refreshTokenThunk(null, "refereshNow");
       } else {
+        await AsyncStorage.clear();
         navigation.navigate("auth");
       }
     })();

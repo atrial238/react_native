@@ -6,7 +6,7 @@ import { addtoCart } from "../../store/slice/cart";
 import ScreenWrapper from "../../components/common/ScreenWrapper";
 import ProductItem from "../../components/shop/ProductItem";
 import useCartHeaderButton from "../../hooks/useCartHeaderButton";
-// import { fetchAllProducts } from "../../store/slice/products";
+import { fetchAllProducts } from "../../store/slice/products";
 
 const ProductsOverview = ({ navigation }) => {
   const allProducts = useSelector((state) => state.products.allProducts);
@@ -15,7 +15,7 @@ const ProductsOverview = ({ navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    //  dispatch(fetchAllProducts());
+    dispatch(fetchAllProducts());
   }, []);
 
   useCartHeaderButton(navigation, cart);
